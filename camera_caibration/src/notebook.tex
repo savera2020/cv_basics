@@ -1,0 +1,940 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{camera\_calibration}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Assignment 1 Camera
+Calibration}\label{assignment-1-camera-calibration}
+
+\subsubsection{Name : Nitin Kandpal, Roll number :
+2018802004}\label{name-nitin-kandpal-roll-number-2018802004}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+        \PY{k+kn}{import} \PY{n+nn}{cv2}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{img\PYZus{}points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{129}\PY{p}{,}\PY{l+m+mi}{273}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{889}\PY{p}{,}\PY{l+m+mi}{321}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1649}\PY{p}{,}\PY{l+m+mi}{369}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2433}\PY{p}{,}\PY{l+m+mi}{417}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3233}\PY{p}{,}\PY{l+m+mi}{465}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4067}\PY{p}{,}\PY{l+m+mi}{513}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4913}\PY{p}{,}\PY{l+m+mi}{553}\PY{p}{]}\PY{p}{,}
+        \PY{p}{[}\PY{l+m+mi}{193}\PY{p}{,}\PY{l+m+mi}{1041}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{971}\PY{p}{,}\PY{l+m+mi}{1097}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1665}\PY{p}{,}\PY{l+m+mi}{1161}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2433}\PY{p}{,}\PY{l+m+mi}{1209}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3217}\PY{p}{,}\PY{l+m+mi}{1273}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4033}\PY{p}{,}\PY{l+m+mi}{1329}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4865}\PY{p}{,}\PY{l+m+mi}{1385}\PY{p}{]}\PY{p}{,}
+        \PY{p}{[}\PY{l+m+mi}{665}\PY{p}{,}\PY{l+m+mi}{2097}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1433}\PY{p}{,}\PY{l+m+mi}{2161}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2225}\PY{p}{,}\PY{l+m+mi}{2233}\PY{p}{]}\PY{p}{,}
+        \PY{p}{[}\PY{l+m+mi}{329}\PY{p}{,}\PY{l+m+mi}{2393}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1137}\PY{p}{,}\PY{l+m+mi}{2457}\PY{p}{]}\PY{p}{,}
+        \PY{p}{[}\PY{l+m+mi}{357}\PY{p}{,}\PY{l+m+mi}{3209}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1409}\PY{p}{,}\PY{l+m+mi}{3305}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2377}\PY{p}{,}\PY{l+m+mi}{3393}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3385}\PY{p}{,}\PY{l+m+mi}{3489}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4417}\PY{p}{,}\PY{l+m+mi}{3609}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        
+        \PY{n}{world\PYZus{}points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{216}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{180}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{144}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{108}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                        \PY{p}{[}\PY{l+m+mi}{216}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{180}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{144}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{108}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                        \PY{p}{[}\PY{l+m+mi}{180}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{144}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{108}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{]}\PY{p}{,}
+                        \PY{p}{[}\PY{l+m+mi}{180}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{144}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{]}\PY{p}{,}
+                        \PY{p}{[}\PY{l+m+mi}{144}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{144}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{108}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{144}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{144}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{144}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{144}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{answer 1 DLT}\label{answer-1-dlt}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{point\PYZus{}world\PYZus{}matrix}\PY{p}{(}\PY{n}{img\PYZus{}point}\PY{p}{,} \PY{n}{world\PYZus{}point}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{pointX} \PY{o}{=} \PY{p}{[}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+            \PY{n}{pointY} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+            \PY{k}{return} \PY{n}{pointX}\PY{p}{,}\PY{n}{pointY}       \PY{c+c1}{\PYZsh{}\PYZsh{} A is 2 x 12 matrix}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{DLT\PYZus{}calibration}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{)}\PY{p}{:}   
+            \PY{c+c1}{\PYZsh{}M = np.empty((2*img\PYZus{}points.shape[0], 12),dtype=\PYZsq{}int64\PYZsq{})}
+            \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{objpoints} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} 3d point in real world space}
+            \PY{n}{imgpoints} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} 2d points in image plane.}
+            \PY{n}{objpoints\PYZus{}DLT} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{imgpoints\PYZus{}DLT} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{img\PYZus{}point}\PY{p}{,}\PY{n}{world\PYZus{}point} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{)}\PY{p}{:}
+                \PY{n}{pointX}\PY{p}{,}\PY{n}{pointY} \PY{o}{=} \PY{n}{point\PYZus{}world\PYZus{}matrix}\PY{p}{(}\PY{n}{img\PYZus{}point}\PY{p}{,} \PY{n}{world\PYZus{}point}\PY{p}{)}   \PY{c+c1}{\PYZsh{}\PYZsh{} 2x12 matrix}
+                
+                \PY{c+c1}{\PYZsh{}np.append(M,np.array(A\PYZus{}point),axis=0)}
+                \PY{n}{A}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pointX}\PY{p}{)}
+                \PY{n}{A}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pointY}\PY{p}{)}
+                \PY{k}{if}\PY{p}{(}\PY{n}{count}\PY{o}{\PYZlt{}}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{objpoints}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{world\PYZus{}point}\PY{p}{)}
+                    \PY{n}{imgpoints}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{img\PYZus{}point}\PY{p}{)}
+        
+                \PY{n}{count}\PY{o}{=}\PY{n}{count}\PY{o}{+}\PY{l+m+mi}{1}
+            \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+            
+            
+            
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} perfomr SVD }
+            \PY{n}{u}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{vh} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{full\PYZus{}matrices}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} use the last value }
+            \PY{n}{M} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{vh}\PY{p}{)}
+            
+            \PY{n}{M\PYZus{}1d} \PY{o}{=} \PY{n}{M}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{M\PYZus{}2d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{M\PYZus{}1d}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} to calculate redial distortion}
+            \PY{n}{objpoints} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{objpoints}\PY{p}{)}
+            \PY{n}{objpoints}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{objpoints\PYZus{}DLT}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{objpoints}\PY{p}{)}
+            \PY{n}{imgpoints} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{imgpoints}\PY{p}{)}
+            \PY{n}{imgpoints}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{imgpoints} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{imgpoints}\PY{p}{,}\PY{p}{[}\PY{n}{imgpoints}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{imgpoints}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+            \PY{n}{imgpoints\PYZus{}DLT}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{imgpoints}\PY{p}{)}
+            \PY{k}{return} \PY{n}{M\PYZus{}2d}\PY{p}{,} \PY{n}{objpoints\PYZus{}DLT}\PY{p}{,}\PY{n}{imgpoints\PYZus{}DLT}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{draw\PYZus{}reproject\PYZus{}point}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{,}\PY{n}{P}\PY{p}{)}\PY{p}{:}
+            \PY{n}{img1} \PY{o}{=} \PY{n}{img}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+            \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{world\PYZus{}point} \PY{o+ow}{in} \PY{n}{world\PYZus{}points}\PY{p}{:}
+                \PY{n}{h\PYZus{}world\PYZus{}points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{n}{img\PYZus{}point} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P}\PY{p}{,}\PY{n}{h\PYZus{}world\PYZus{}points}\PY{p}{)}
+                
+                \PY{n}{X} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                \PY{n}{Y} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{n}{img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}print(X,Y)}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} draw points }
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{img1}\PY{p}{,} \PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{X}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{Y}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}
+                \PY{k}{if} \PY{p}{(}\PY{n}{count} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{cv2}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{img1}\PY{p}{,} \PY{p}{(}\PY{n}{X\PYZus{}old}\PY{p}{,}\PY{n}{Y\PYZus{}old}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{thickness}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{lineType}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}
+                \PY{n}{X\PYZus{}old} \PY{o}{=} \PY{n}{X}
+                \PY{n}{Y\PYZus{}old} \PY{o}{=} \PY{n}{Y}
+                \PY{n}{count} \PY{o}{=}\PY{n}{count}\PY{o}{+}\PY{l+m+mi}{1}
+                \PY{c+c1}{\PYZsh{}cv2.circle(img, (X,Y), 55,[0,255,0])}
+            \PY{n}{imgplot} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img1}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{reprojection\PYZus{}error}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{,}\PY{n}{P}\PY{p}{)}\PY{p}{:}
+            \PY{n}{error} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{img\PYZus{}point}\PY{p}{,} \PY{n}{world\PYZus{}point} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{)}\PY{p}{:}
+                \PY{n}{h\PYZus{}world\PYZus{}points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{world\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{n}{predicted\PYZus{}img\PYZus{}point} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P}\PY{p}{,}\PY{n}{h\PYZus{}world\PYZus{}points}\PY{p}{)}
+                \PY{n}{X} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{predicted\PYZus{}img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{predicted\PYZus{}img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                \PY{n}{Y} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{predicted\PYZus{}img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{n}{predicted\PYZus{}img\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                \PY{n}{temp\PYZus{}error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{img\PYZus{}point}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{error} \PY{o}{=} \PY{n}{temp\PYZus{}error} \PY{o}{+} \PY{n}{error}
+            \PY{k}{return} \PY{n}{error}
+            
+            
+\end{Verbatim}
+
+
+    \subsubsection{answer2 ransac variation}\label{answer2-ransac-variation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{ransac\PYZus{}variation\PYZus{}calibration}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{)}\PY{p}{:}
+            
+            \PY{c+c1}{\PYZsh{}\PYZsh{} select random points }
+            \PY{n}{count} \PY{o}{=}\PY{l+m+mi}{0}
+            \PY{k}{while}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                \PY{n}{index} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}
+                \PY{n}{random\PYZus{}img\PYZus{}points} \PY{o}{=} \PY{n}{img\PYZus{}points}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                \PY{n}{random\PYZus{}world\PYZus{}points} \PY{o}{=} \PY{n}{world\PYZus{}points}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                \PY{n}{M1}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{DLT\PYZus{}calibration}\PY{p}{(}\PY{n}{random\PYZus{}img\PYZus{}points}\PY{p}{,}\PY{n}{random\PYZus{}world\PYZus{}points}\PY{p}{)}
+        
+                \PY{n}{r\PYZus{}error} \PY{o}{=} \PY{n}{reprojection\PYZus{}error}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{,}\PY{n}{M1}\PY{p}{)}
+                \PY{k}{if}\PY{p}{(}\PY{n}{r\PYZus{}error} \PY{o}{\PYZlt{}} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{break}
+            \PY{k}{return} \PY{n}{M1}       
+            \PY{c+c1}{\PYZsh{}return r\PYZus{}error}
+\end{Verbatim}
+
+
+    \subsubsection{Answer 3 Use DLT and ransac to calibrate
+camera}\label{answer-3-use-dlt-and-ransac-to-calibrate-camera}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{M\PYZus{}DLT}\PY{p}{,}\PY{n}{objpoints}\PY{p}{,}\PY{n}{imgpoints} \PY{o}{=} \PY{n}{DLT\PYZus{}calibration}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{)}   
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{M\PYZus{}DLT}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[-3.97632887e-03 -3.84684271e-04 -1.93680152e-03  9.11764404e-01]
+ [-2.23169425e-04 -4.29677925e-03  7.26016697e-04  4.10666392e-01]
+ [ 5.88240497e-08 -1.43347861e-07 -3.31500057e-07  1.90394071e-04]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{M\PYZus{}ransac} \PY{o}{=} \PY{n}{ransac\PYZus{}variation\PYZus{}calibration}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{M\PYZus{}ransac}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 3.99306319e-03  3.31010723e-04  1.83874926e-03 -9.11714708e-01]
+ [ 2.20484107e-04  4.29619699e-03 -8.21407239e-04 -4.10776872e-01]
+ [-6.24575276e-08  1.34460228e-07  3.04926363e-07 -1.90348925e-04]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{reprojection\PYZus{}error}\PY{p}{(}\PY{n}{img\PYZus{}points}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{,}\PY{n}{M\PYZus{}ransac}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 4.123105625617661
+\end{Verbatim}
+            
+    Ransac variation improved the projection result due to variation in
+selecting image points in DLT method. we can see the reprojection matrix
+are comming very small in some units migh be in mm.
+
+    \subsubsection{Answer 4 distortion
+coeffcients}\label{answer-4-distortion-coeffcients}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../IMG\PYZus{}5455.JPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{gray}\PY{o}{.}\PY{n}{shape}
+         \PY{n}{criteria} \PY{o}{=} \PY{p}{(}\PY{n}{cv2}\PY{o}{.}\PY{n}{CALIB\PYZus{}USE\PYZus{}INTRINSIC\PYZus{}GUESS} \PY{o}{+} \PY{n}{cv2}\PY{o}{.}\PY{n}{TERM\PYZus{}CRITERIA\PYZus{}EPS} \PY{o}{+} \PY{n}{cv2}\PY{o}{.}\PY{n}{TERM\PYZus{}CRITERIA\PYZus{}MAX\PYZus{}ITER}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:}  
+         \PY{k}{def} \PY{n+nf}{rq}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Implement rq decomposition using QR decomposition}
+         \PY{l+s+sd}{ }
+         \PY{l+s+sd}{    From Wikipedia,}
+         \PY{l+s+sd}{     The RQ decomposition transforms a matrix A into the product of an upper triangular matrix R (also known as right\PYZhy{}triangular) and an orthogonal matrix Q. The only difference from QR decomposition is the order of these matrices.}
+         \PY{l+s+sd}{     QR decomposition is Gram\PYZhy{}Schmidt orthogonalization of columns of A, started from the first column.}
+         \PY{l+s+sd}{     RQ decomposition is Gram\PYZhy{}Schmidt orthogonalization of rows of A, started from the last row.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+          
+             \PY{n}{m}\PY{p}{,} \PY{n}{n} \PY{o}{=} \PY{n}{A}\PY{o}{.}\PY{n}{shape}
+          
+             \PY{c+c1}{\PYZsh{} Reverse the rows}
+             \PY{n}{reversed\PYZus{}A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{flipud}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+          
+             \PY{c+c1}{\PYZsh{} Make rows into column, then find QR}
+             \PY{n}{Q}\PY{p}{,} \PY{n}{R} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{qr}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{reversed\PYZus{}A}\PY{p}{)}\PY{p}{)}
+          
+             \PY{c+c1}{\PYZsh{} The returned R is flipped updown, left right of transposed R}
+             \PY{n}{R} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{flipud}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}
+             \PY{n}{R}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{m}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{R}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{m}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+          
+             \PY{c+c1}{\PYZsh{} The returned Q is the flipped up\PYZhy{}down of transposed Q}
+             \PY{n}{Q} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{Q}\PY{p}{)}
+             \PY{n}{Q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{m}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{Q}\PY{p}{[}\PY{n}{m}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+          
+             \PY{k}{return} \PY{n}{R}\PY{p}{,} \PY{n}{Q}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}K = M[0:3,0:3]}
+\end{Verbatim}
+
+
+    \subsubsection{find distortion
+coefficients}\label{find-distortion-coefficients}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{ret\PYZus{}DLT}\PY{p}{,} \PY{n}{mtx\PYZus{}DLT}\PY{p}{,} \PY{n}{dist\PYZus{}DLT}\PY{p}{,} \PY{n}{rvecs\PYZus{}DLT}\PY{p}{,} \PY{n}{tvecs\PYZus{}DLT} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{calibrateCamera}\PY{p}{(}\PY{n}{objpoints}\PY{p}{,}\PY{n}{imgpoints}\PY{p}{,} \PY{n}{gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{k+kc}{None}\PY{p}{,}\PY{k+kc}{None}\PY{p}{,}\PY{n}{criteria}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{dist\PYZus{}DLT}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} array([[-2.07868251e+00,  4.06397153e+01, -1.78786053e-02,
+                  7.90737536e-03, -2.17138037e+02]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{test\PYZus{}img} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../IMG\PYZus{}5455.JPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{h}\PY{p}{,}  \PY{n}{w} \PY{o}{=} \PY{n}{test\PYZus{}img}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}newcameramtx, roi=cv2.getOptimalNewCameraMatrix(mtx\PYZus{}R,dist\PYZus{}R,(w,h),alpha= 0)}
+         \PY{n}{newMat\PYZus{}R}\PY{p}{,} \PY{n}{ROI} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{getOptimalNewCameraMatrix}\PY{p}{(}\PY{n}{mtx\PYZus{}DLT}\PY{p}{,} \PY{n}{dist\PYZus{}DLT}\PY{p}{,}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{centerPrincipalPoint} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}mapx, mapy = cv2.initUndistortRectifyMap(mtx\PYZus{}DLT, dist\PYZus{}DLT, None, newMat\PYZus{}R, (w,h), m1type = cv2.CV\PYZus{}32FC1)}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}dst = cv2.remap(test\PYZus{}img, mapx, mapy, cv2.INTER\PYZus{}LINEAR)}
+         \PY{n}{dst} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{undistort}\PY{p}{(}\PY{n}{test\PYZus{}img}\PY{p}{,} \PY{n}{mtx\PYZus{}DLT}\PY{p}{,} \PY{n}{dist\PYZus{}DLT}\PY{p}{,}\PY{n}{newMat\PYZus{}R}\PY{p}{)}
+         \PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../undistort.JPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{dst}\PY{p}{)}
+         \PY{n}{imgplot} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{dst}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} mnually read new image points in undistorted image }
+         
+         
+         \PY{n}{u\PYZus{}img\PYZus{}points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{65}\PY{p}{,}\PY{l+m+mi}{273}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{825}\PY{p}{,}\PY{l+m+mi}{313}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1609}\PY{p}{,}\PY{l+m+mi}{345}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2417}\PY{p}{,}\PY{l+m+mi}{417}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3233}\PY{p}{,}\PY{l+m+mi}{457}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4081}\PY{p}{,}\PY{l+m+mi}{505}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4945}\PY{p}{,}\PY{l+m+mi}{545}\PY{p}{]}\PY{p}{,}
+         \PY{p}{[}\PY{l+m+mi}{121}\PY{p}{,}\PY{l+m+mi}{1057}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{849}\PY{p}{,}\PY{l+m+mi}{1113}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1633}\PY{p}{,}\PY{l+m+mi}{1161}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2433}\PY{p}{,}\PY{l+m+mi}{1209}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3217}\PY{p}{,}\PY{l+m+mi}{1273}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4057}\PY{p}{,}\PY{l+m+mi}{1337}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4913}\PY{p}{,}\PY{l+m+mi}{1393}\PY{p}{]}\PY{p}{,}
+         \PY{p}{[}\PY{l+m+mi}{585}\PY{p}{,}\PY{l+m+mi}{2129}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1369}\PY{p}{,}\PY{l+m+mi}{2201}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2201}\PY{p}{,}\PY{l+m+mi}{2265}\PY{p}{]}\PY{p}{,}
+         \PY{p}{[}\PY{l+m+mi}{249}\PY{p}{,}\PY{l+m+mi}{2449}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1081}\PY{p}{,}\PY{l+m+mi}{2513}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                                  
+         \PY{n}{u\PYZus{}world\PYZus{}points} \PY{o}{=} \PY{n}{world\PYZus{}points}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{]}                         
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{M\PYZus{}DLT\PYZus{}undistorted}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{DLT\PYZus{}calibration}\PY{p}{(}\PY{n}{u\PYZus{}img\PYZus{}points}\PY{p}{,}\PY{n}{u\PYZus{}world\PYZus{}points}\PY{p}{)}   
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{M\PYZus{}DLT\PYZus{}undistorted}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[-4.07209430e-03 -2.70677421e-04 -1.87649578e-03  9.11592672e-01]
+ [-2.15093767e-04 -4.32646592e-03  8.65151566e-04  4.11046319e-01]
+ [ 6.74766195e-08 -9.85129517e-08 -2.92906725e-07  1.87322371e-04]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{M\PYZus{}ransac\PYZus{}undistorted} \PY{o}{=} \PY{n}{ransac\PYZus{}variation\PYZus{}calibration}\PY{p}{(}\PY{n}{u\PYZus{}img\PYZus{}points}\PY{p}{,}\PY{n}{u\PYZus{}world\PYZus{}points}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{M\PYZus{}ransac\PYZus{}undistorted}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[-4.06825958e-03 -2.34961360e-04 -1.86131350e-03  9.10830252e-01]
+ [-2.14388480e-04 -4.34707227e-03  8.90461515e-04  4.12732856e-01]
+ [ 7.24182934e-08 -9.63836526e-08 -2.89049322e-07  1.87540667e-04]]
+
+    \end{Verbatim}
+
+    We can observe after correcting radial distortion and again performing
+calibration projection matrix got changed. It is not optimized for
+undistroted image.
+
+    \subsubsection{Answer 5 draw the wire
+frame}\label{answer-5-draw-the-wire-frame}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../IMG\PYZus{}5455.JPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{draw\PYZus{}reproject\PYZus{}point}\PY{p}{(}\PY{n}{gray}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{,}\PY{n}{M\PYZus{}DLT}\PY{p}{)}
+         \PY{n}{draw\PYZus{}reproject\PYZus{}point}\PY{p}{(}\PY{n}{gray}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{,}\PY{n}{M\PYZus{}ransac}\PY{p}{)}
+         \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../undistort.JPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{draw\PYZus{}reproject\PYZus{}point}\PY{p}{(}\PY{n}{gray}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{,}\PY{n}{M\PYZus{}DLT\PYZus{}undistorted}\PY{p}{)}
+         \PY{n}{draw\PYZus{}reproject\PYZus{}point}\PY{p}{(}\PY{n}{gray}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{,}\PY{n}{M\PYZus{}ransac\PYZus{}undistorted}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    overlay of undistored image will be streight line as compared to non
+distored image.
+
+    \subsubsection{Answer 6 Zhangs method}\label{answer-6-zhangs-method}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{import} \PY{n+nn}{glob}
+         
+         \PY{n}{board\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{8}
+         \PY{n}{board\PYZus{}h} \PY{o}{=} \PY{l+m+mi}{6}       \PY{c+c1}{\PYZsh{}\PYZsh{} 7 }
+         \PY{c+c1}{\PYZsh{}Board dimensions (typically in cm)}
+         \PY{n}{board\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{29}
+         
+         \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../images/*JPG}\PY{l+s+s1}{\PYZsq{}} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{detectcheckerborad}\PY{p}{(}\PY{n}{img\PYZus{}gray}\PY{p}{)}\PY{p}{:}    
+             \PY{n}{thre\PYZus{}image} \PY{o}{=} \PY{l+m+mi}{255}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{img\PYZus{}gray} \PY{o}{\PYZgt{}}\PY{l+m+mi}{50}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uint8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{thre\PYZus{}image}
+         
+         \PY{k}{def} \PY{n+nf}{inrinsicCalibration}\PY{p}{(}\PY{n}{path}\PY{p}{,}\PY{n}{flag}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} termination criteria}
+             \PY{c+c1}{\PYZsh{}criteria = (cv2.TERM\PYZus{}CRITERIA\PYZus{}EPS + cv2.TERM\PYZus{}CRITERIA\PYZus{}MAX\PYZus{}ITER, 100, 0.0001)}
+             \PY{n}{criteria} \PY{o}{=} \PY{p}{(}\PY{n}{cv2}\PY{o}{.}\PY{n}{TERM\PYZus{}CRITERIA\PYZus{}EPS} \PY{o}{+} \PY{n}{cv2}\PY{o}{.}\PY{n}{TERM\PYZus{}CRITERIA\PYZus{}MAX\PYZus{}ITER}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(6,5,0)}
+         \PY{c+c1}{\PYZsh{}    objp = np.zeros((9*7,3), np.float32)}
+         \PY{c+c1}{\PYZsh{}    objp[:,:2] = np.mgrid[0:7,0:9].T.reshape(\PYZhy{}1,2)}
+             
+             
+         
+             
+             \PY{n}{objp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{board\PYZus{}h}\PY{o}{*}\PY{n}{board\PYZus{}w}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+             \PY{n}{objp}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mgrid}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{(}\PY{n}{board\PYZus{}w}\PY{o}{*}\PY{n}{board\PYZus{}dim}\PY{p}{)}\PY{p}{:}\PY{n}{board\PYZus{}dim}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{(}\PY{n}{board\PYZus{}h}\PY{o}{*}\PY{n}{board\PYZus{}dim}\PY{p}{)}\PY{p}{:}\PY{n}{board\PYZus{}dim}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+             
+              \PY{c+c1}{\PYZsh{} Arrays to store object points and image points from all the images.}
+             \PY{n}{objpoints} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} 3d point in real world space}
+             \PY{n}{imgpoints} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} 2d points in image plane.}
+             
+             \PY{n}{images} \PY{o}{=} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+             
+             \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{c+c1}{\PYZsh{}textfile\PYZus{}W = open(\PYZsq{}Cam2\PYZus{}L\PYZsq{}+ \PYZdq{}.txt\PYZdq{},\PYZdq{}w\PYZdq{})}
+             \PY{n}{fig}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+             \PY{n}{rows} \PY{o}{=} \PY{l+m+mi}{6}
+             \PY{n}{columns} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{i}\PY{o}{=}\PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{fname} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{images}\PY{p}{)}\PY{p}{:}
+                 
+                 \PY{n}{img} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{fname}\PY{p}{)}
+                 
+                 \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{flag}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{gray} \PY{o}{=} \PY{n}{detectcheckerborad}\PY{p}{(}\PY{n}{gray}\PY{p}{)}
+                 
+         \PY{c+c1}{\PYZsh{}        cv2.namedWindow(\PYZsq{}disparity\PYZsq{}, cv2.WINDOW\PYZus{}NORMAL)}
+         \PY{c+c1}{\PYZsh{}        cv2.resizeWindow(\PYZsq{}disparity\PYZsq{}, 800, 640)    }
+         \PY{c+c1}{\PYZsh{}        cv2.imshow(\PYZsq{}disparity\PYZsq{}, gray)}
+         \PY{c+c1}{\PYZsh{}        cv2.waitKey()}
+                 
+                 \PY{c+c1}{\PYZsh{} Find the chess board corners}
+                 \PY{n}{ret}\PY{p}{,} \PY{n}{corners} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{findChessboardCorners}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{p}{(}\PY{n}{board\PYZus{}w}\PY{p}{,}\PY{n}{board\PYZus{}h}\PY{p}{)}\PY{p}{,}\PY{k+kc}{None}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print (ret)}
+                 \PY{c+c1}{\PYZsh{} If found, add object points, image points (after refining them)}
+                 
+                 \PY{k}{if} \PY{p}{(}\PY{p}{(}\PY{n}{ret} \PY{o}{==} \PY{k+kc}{True}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{corners}\PY{p}{[}\PY{p}{(}\PY{n}{board\PYZus{}w}\PY{o}{*}\PY{n}{board\PYZus{}h}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{corners}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         		
+                     \PY{n}{objpoints}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{objp}\PY{p}{)}
+             
+                     \PY{n}{cv2}\PY{o}{.}\PY{n}{cornerSubPix}\PY{p}{(}\PY{n}{gray}\PY{p}{,}\PY{n}{corners}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{criteria}\PY{p}{)}
+                     \PY{n}{imgpoints}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{corners}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{}print (count)}
+                            \PY{c+c1}{\PYZsh{} Draw and display the corners}
+                     \PY{n}{cv2}\PY{o}{.}\PY{n}{drawChessboardCorners}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{p}{(}\PY{n}{board\PYZus{}w}\PY{p}{,}\PY{n}{board\PYZus{}h}\PY{p}{)}\PY{p}{,} \PY{n}{corners}\PY{p}{,}\PY{n}{ret}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{}cv2.namedWindow(\PYZsq{}img\PYZsq{}, cv2.WINDOW\PYZus{}NORMAL)}
+                     \PY{c+c1}{\PYZsh{}cv2.resizeWindow(\PYZsq{}img\PYZsq{}, 800, 600)    }
+                             
+                     \PY{c+c1}{\PYZsh{}cv2.imshow(\PYZsq{}img\PYZsq{},img)}
+                     \PY{c+c1}{\PYZsh{}cv2.waitKey(100)}
+                     \PY{c+c1}{\PYZsh{}char = cv2.waitKey(0)}
+                     
+                     \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{n}{rows}\PY{p}{,} \PY{n}{columns}\PY{p}{,} \PY{p}{(}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{5})+1)
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{off}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n+nb}{str} \PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{5})+1)+ \PYZdq{} calibration image\PYZdq{})
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+                     \PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}
+                 \PY{n}{count} \PY{o}{=} \PY{n}{count}\PY{o}{+}\PY{l+m+mi}{1}
+                     
+             \PY{c+c1}{\PYZsh{}        textfile\PYZus{}W.write(fname.split(\PYZsq{}\PYZbs{}\PYZbs{}\PYZsq{})[1]+\PYZdq{}\PYZbs{}n\PYZdq{})}
+             \PY{c+c1}{\PYZsh{}textfile\PYZus{}W.close()        }
+             \PY{n}{cv2}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+             
+             
+             
+             \PY{n}{ret}\PY{p}{,} \PY{n}{mtx}\PY{p}{,} \PY{n}{dist}\PY{p}{,} \PY{n}{rvecs}\PY{p}{,} \PY{n}{tvecs} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{calibrateCamera}\PY{p}{(}\PY{n}{objpoints}\PY{p}{,} \PY{n}{imgpoints}\PY{p}{,} \PY{n}{gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{k+kc}{None}\PY{p}{,}\PY{k+kc}{None}\PY{p}{,}\PY{n}{criteria}\PY{p}{)}
+             
+             \PY{n}{mean\PYZus{}error} \PY{o}{=} \PY{l+m+mi}{0}
+         
+             \PY{n}{tot\PYZus{}error} \PY{o}{=}\PY{l+m+mi}{0}
+             \PY{n}{total\PYZus{}points} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{error\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{objpoints}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{reprojected\PYZus{}points}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{projectPoints}\PY{p}{(}\PY{n}{objpoints}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{rvecs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{tvecs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{mtx}\PY{p}{,} \PY{n}{dist}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}        reprojected\PYZus{}points=reprojected\PYZus{}points.reshape(\PYZhy{}1,2)}
+                 \PY{n}{tot\PYZus{}error}\PY{o}{+}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{imgpoints}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{reprojected\PYZus{}points}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                 \PY{n}{total\PYZus{}points}\PY{o}{+}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{objpoints}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{error\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{imgpoints}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{reprojected\PYZus{}points}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{objpoints}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{mean\PYZus{}error}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{tot\PYZus{}error}\PY{o}{/}\PY{n}{total\PYZus{}points}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean reprojection error: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{mean\PYZus{}error}\PY{p}{)}    
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{fname}\PY{p}{)}
+             \PY{k}{return} \PY{n}{ret}\PY{p}{,} \PY{n}{mtx}\PY{p}{,} \PY{n}{dist}\PY{p}{,} \PY{n}{rvecs}\PY{p}{,} \PY{n}{tvecs}\PY{p}{,} \PY{n}{objpoints}\PY{p}{,} \PY{n}{imgpoints}\PY{p}{,} \PY{n}{gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{error\PYZus{}list}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{ret}\PY{p}{,} \PY{n}{mtx}\PY{p}{,} \PY{n}{dist}\PY{p}{,} \PY{n}{rvecs}\PY{p}{,} \PY{n}{tvecs}\PY{p}{,} \PY{n}{objpoints}\PY{p}{,} \PY{n}{imgpoints}\PY{p}{,}\PY{n}{gray\PYZus{}shape}\PY{p}{,}\PY{n}{error} \PY{o}{=} \PY{n}{inrinsicCalibration}\PY{p}{(}\PY{n}{path}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}kandpani\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}deprecation.py:107: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean reprojection error:  2.333842789573212
+../images\textbackslash{}IMG\_5470.JPG
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{6.2 how result campare}\label{how-result-campare}
+
+    As compared to DLT method, Zhangs method gives the intrinsics in term of
+pixels value, so fx and fy all are in term of pixels. For many
+application it is better as we can do the calculation in pixels and even
+do the convesion from pixels to mm.
+
+    \subsubsection{Answer 7 draw the points with projection
+matrix}\label{answer-7-draw-the-points-with-projection-matrix}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} get the projection matrix for image 1 of checker board}
+         \PY{n}{K} \PY{o}{=} \PY{n}{mtx}
+         \PY{n}{R} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Rodrigues}\PY{p}{(}\PY{n}{rvecs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{T} \PY{o}{=} \PY{n}{tvecs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{RT} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{R}\PY{p}{,}\PY{n}{T}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{P} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{K}\PY{p}{,} \PY{n}{RT}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{world\PYZus{}points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{objpoints}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{img} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../images/IMG\PYZus{}5456.JPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{draw\PYZus{}reproject\PYZus{}point}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{n}{world\PYZus{}points}\PY{p}{,}\PY{n}{P}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Answer 8}\label{answer-8}
+
+    Image of world origin mean camera at world origin so there will be no
+translation. T will be {[}0,0,0{]} in that case. IF we assume camera
+axis allined with world axis and camera at world origin than there will
+be no translation as weel as rotation. So Projection matrix will be P =
+K and RT will become the identity marix. In my observation i did not
+observe any such image as some translation or rotation was always
+present im my calibration images.
+
+    \subsubsection{Answer 9}\label{answer-9}
+
+I am going to use gopro hero 5 camera.
+
+    \subsubsection{Answer 10}\label{answer-10}
+
+Own camera calibration with zhange method
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{board\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{9}
+         \PY{n}{board\PYZus{}h} \PY{o}{=} \PY{l+m+mi}{6}       \PY{c+c1}{\PYZsh{}\PYZsh{} 7 }
+         \PY{c+c1}{\PYZsh{}Board dimensions (typically in cm)}
+         \PY{n}{board\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{38}
+         
+         \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../own\PYZus{}images/*JPG}\PY{l+s+s1}{\PYZsq{}} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{ret}\PY{p}{,} \PY{n}{mtx}\PY{p}{,} \PY{n}{dist}\PY{p}{,} \PY{n}{rvecs}\PY{p}{,} \PY{n}{tvecs}\PY{p}{,} \PY{n}{objpoints}\PY{p}{,} \PY{n}{imgpoints}\PY{p}{,}\PY{n}{gray\PYZus{}shape}\PY{p}{,}\PY{n}{error} \PY{o}{=} \PY{n}{inrinsicCalibration}\PY{p}{(}\PY{n}{path}\PY{p}{,}\PY{n}{flag}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}kandpani\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}deprecation.py:107: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean reprojection error:  0.7640167283485418
+../own\_images\textbackslash{}847.JPG
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{mtx}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} array([[1.12759835e+03, 0.00000000e+00, 9.49656479e+02],
+                [0.00000000e+00, 1.13584906e+03, 5.10121276e+02],
+                [0.00000000e+00, 0.00000000e+00, 1.00000000e+00]])
+\end{Verbatim}
+            
+    \subsection{own\_camera image for DLT and
+Ransac}\label{own_camera-image-for-dlt-and-ransac}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{img\PYZus{}DLT} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../DLT\PYZus{}on\PYZus{}image/DLT\PYZus{}image.JPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}DLT}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} <matplotlib.image.AxesImage at 0x2848ee1f470>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{own\PYZus{}world\PYZus{}points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                                    \PY{p}{[}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]}\PY{p}{,}
+                                    \PY{p}{[}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{own\PYZus{}image\PYZus{}points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2481}\PY{p}{,}\PY{l+m+mi}{317}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2889}\PY{p}{,}\PY{l+m+mi}{349}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3225}\PY{p}{,}\PY{l+m+mi}{397}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2465}\PY{p}{,}\PY{l+m+mi}{685}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2892}\PY{p}{,}\PY{l+m+mi}{717}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3153}\PY{p}{,}\PY{l+m+mi}{753}\PY{p}{]}\PY{p}{,}
+                                     \PY{p}{[}\PY{l+m+mi}{2413}\PY{p}{,}\PY{l+m+mi}{1037}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2769}\PY{p}{,}\PY{l+m+mi}{1057}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3081}\PY{p}{,}\PY{l+m+mi}{1073}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2469}\PY{p}{,}\PY{l+m+mi}{1565}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2821}\PY{p}{,}\PY{l+m+mi}{1561}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3141}\PY{p}{,}\PY{l+m+mi}{1561}\PY{p}{]}\PY{p}{,}
+                                      \PY{p}{[}\PY{l+m+mi}{2537}\PY{p}{,}\PY{l+m+mi}{1801}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2949}\PY{p}{,}\PY{l+m+mi}{1793}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3297}\PY{p}{,}\PY{l+m+mi}{1777}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2637}\PY{p}{,}\PY{l+m+mi}{2101}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3081}\PY{p}{,}\PY{l+m+mi}{2081}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3469}\PY{p}{,}\PY{l+m+mi}{2045}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{M\PYZus{}DLT\PYZus{}own}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{DLT\PYZus{}calibration}\PY{p}{(}\PY{n}{own\PYZus{}image\PYZus{}points}\PY{p}{,}\PY{n}{own\PYZus{}world\PYZus{}points}\PY{p}{)}   
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{M\PYZus{}DLT\PYZus{}own}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 4.95343534e-03  9.15334624e-04  1.66082999e-03 -9.11529998e-01]
+ [ 6.77510955e-04  4.08846954e-03 -7.06308059e-04 -4.11177780e-01]
+ [ 4.61235399e-07  5.32281201e-07  9.82053345e-07 -3.00564708e-04]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{M\PYZus{}ransac\PYZus{}own} \PY{o}{=} \PY{n}{ransac\PYZus{}variation\PYZus{}calibration}\PY{p}{(}\PY{n}{own\PYZus{}image\PYZus{}points}\PY{p}{,}\PY{n}{own\PYZus{}world\PYZus{}points}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{M\PYZus{}ransac\PYZus{}own}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 5.09806962e-03  9.59001100e-04  1.67956955e-03 -9.12827047e-01]
+ [ 7.04876745e-04  4.04003103e-03 -7.28472103e-04 -4.08288636e-01]
+ [ 5.10561234e-07  5.47298517e-07  9.87155253e-07 -3.00740369e-04]]
+
+    \end{Verbatim}
+
+    from zhange method we can say my camera focal length fx is 1127 and fy
+is 1135 in term of pixels. There are some diffrence in projection matrix
+of DLT method abd ransac variation method values. This is due to poor
+pixel selection. There are direction diffrence in projection matrix due
+to effect of rotation matrix.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
